@@ -30,6 +30,7 @@ func main() {
 			log.Printf("failed migrate up: %s\n", err)
 			return
 		}
+		log.Println("migrate 'up' complete")
 	}
 
 	if c.Migrate == "down" {
@@ -37,5 +38,6 @@ func main() {
 			log.Printf("failed migrate down: %s\n", err)
 			return
 		}
+		log.Println("migrate 'down' complete")
 	}
 }
