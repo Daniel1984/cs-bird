@@ -11,13 +11,13 @@ networks:
     name: cs-bird-network
 
 services:
-  pg:
-    image: postgres:13.3
+  tsdb:
+    image: timescale/timescaledb:latest-pg13
     restart: on-failure
     env_file:
       - .env
     ports:
-      - 3001:5432
+      - 5432:5432
     volumes:
       - csbirdvolume:/var/lib/postgresql/data
     networks:
@@ -26,7 +26,7 @@ services:
     image: thajeztah/pgadmin4
     restart: on-failure
     depends_on:
-      - pg
+      - tsdb
     ports:
       - 5050:5050
     networks:
@@ -47,7 +47,7 @@ services:
       dockerfile: Dockerfile.dev
     restart: on-failure
     depends_on:
-      - pg
+      - tsdb
     volumes:
       - ./:/app
         # ports:
