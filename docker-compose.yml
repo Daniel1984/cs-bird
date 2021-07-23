@@ -1,0 +1,59 @@
+version: "3.7"
+
+volumes:
+  csbirdvolume:
+    name: cs-bird-volume
+  grafanavolume:
+    name: grafana-volume
+
+networks:
+  csbirdnetwork:
+    name: cs-bird-network
+
+services:
+  pg:
+    image: postgres:13.3
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - 3001:5432
+    volumes:
+      - csbirdvolume:/var/lib/postgresql/data
+    networks:
+      - csbirdnetwork
+  pgadmin:
+    image: thajeztah/pgadmin4
+    restart: on-failure
+    depends_on:
+      - pg
+    ports:
+      - 5050:5050
+    networks:
+      - csbirdnetwork
+    env_file:
+      - .env
+  grafana:
+    image: grafana/grafana:latest
+    networks:
+      - csbirdnetwork
+    ports:
+      - 3002:3000
+    volumes:
+      - grafanavolume:/var/lib/grafana
+  csbird:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: on-failure
+    depends_on:
+      - pg
+    volumes:
+      - ./:/app
+        # ports:
+        #   - 3003:7777
+    networks:
+      - csbirdnetwork
+    env_file:
+      - .env
+    entrypoint: ["/bin/bash", "./scripts/entrypoint.sh"]
