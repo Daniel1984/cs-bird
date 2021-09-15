@@ -1,9 +1,10 @@
 CREATE TABLE IF NOT EXISTS public.checkpoints
 (
     time TIMESTAMPTZ NOT NULL,
-    name TEXT NOT NULL,
+    coin TEXT NOT NULL,
     address TEXT NOT NULL,
-    balance DECIMAL(22, 12)
+    balance TEXT NOT NULL,
+    nonce INT
 );
 
 SELECT create_hypertable('public.checkpoints', 'time');
