@@ -10,8 +10,10 @@ type DB struct {
 	Client *sql.DB
 }
 
-func Get(connStr string) (*DB, error) {
-	db, err := get(connStr)
+func New() (*DB, error) {
+	cfg := GetPGCfg()
+
+	db, err := get(cfg.GetDBConnStr())
 	if err != nil {
 		return nil, err
 	}
