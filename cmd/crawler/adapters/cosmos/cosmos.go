@@ -1,15 +1,19 @@
 package cosmos
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/reporterpool"
 	"github.com/cs-bird/internals/request"
+	"github.com/shopspring/decimal"
 )
 
 const (
-	address = "cosmos1h9ymfm2fxrqgd257dlw5nku3jgqjgpl59sm5ns"
-	infoURL = "https://lcd-cosmos.cosmostation.io/cosmos/bank/v1beta1/balances/%s"
+	address          = "cosmos1h9ymfm2fxrqgd257dlw5nku3jgqjgpl59sm5ns"
+	cosmosstationURL = "https://lcd-cosmos.cosmostation.io/cosmos/bank/v1beta1/balances/%s"
+	atomscanURL      = "https://node.atomscan.com/bank/balances/%s"
 )
 
 type Cosmos struct {
@@ -24,29 +28,68 @@ func New() *Cosmos {
 	}
 }
 
-func (this *Cosmos) Get() (cp types.Checkpoint, err error) {
-	balRep, err := getBalanceReport(this.Address)
-	if err != nil {
-		return cp, err
+func (c *Cosmos) Get() (cp types.Checkpoint, err error) {
+	reporterPool := []reporterpool.Reporter{
+		cosmosstationReport,
+		atomscanReport,
 	}
 
-	if len(balRep.Balances) == 0 {
-		return cp, fmt.Errorf("unable to get cosmos balance")
-	}
+	for {
+		var reporter reporterpool.Reporter
+		reporterPool, reporter = reporterpool.PullRandReporter(reporterPool)
 
-	cp.Balance = balRep.Balances[0].Amount
-	cp.Address = this.Address
-	cp.Coin = this.Name
+		balance, err := reporter(c.Address)
+		if err == nil {
+			cp.Balance = balance
+			cp.Address = c.Address
+			cp.Coin = c.Name
+			break
+		} else {
+			// don't care about failure here since if 1 reporter fails, another might succeed
+			fmt.Printf("failed getting wallet info: %s\n", err)
+		}
+
+		if len(reporterPool) == 0 {
+			err = errors.New("run out of connections for: " + c.Name)
+			break
+		}
+	}
 
 	return
 }
 
-func getBalanceReport(address string) (BalanceReport, error) {
-	rep := BalanceReport{}
+func cosmosstationReport(address string) (decimal.Decimal, error) {
+	rep := CosmosstationReport{}
 	req := request.
-		New("GET", fmt.Sprintf(infoURL, address), nil).
+		New("GET", fmt.Sprintf(cosmosstationURL, address), nil).
 		Do().
 		Decode(&rep)
 
-	return rep, req.HasError()
+	if err := req.HasError(); err != nil {
+		return decimal.NewFromInt(0), err
+	}
+
+	if len(rep.Balances) == 0 {
+		return decimal.NewFromInt(0), fmt.Errorf("unable to get balance from cosmosstation")
+	}
+
+	return rep.Balances[0].Amount, nil
+}
+
+func atomscanReport(address string) (decimal.Decimal, error) {
+	rep := AtomscanReport{}
+	req := request.
+		New("GET", fmt.Sprintf(atomscanURL, address), nil).
+		Do().
+		Decode(&rep)
+
+	if err := req.HasError(); err != nil {
+		return decimal.NewFromInt(0), err
+	}
+
+	if len(rep.Result) == 0 {
+		return decimal.NewFromInt(0), fmt.Errorf("unable to get balance from atomscan")
+	}
+
+	return rep.Result[0].Amount, nil
 }
