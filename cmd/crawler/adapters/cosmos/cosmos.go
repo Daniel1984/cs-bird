@@ -46,7 +46,7 @@ func (c *Cosmos) Get() (cp types.Checkpoint, err error) {
 			break
 		} else {
 			// don't care about failure here since if 1 reporter fails, another might succeed
-			fmt.Printf("failed getting wallet info: %s\n", err)
+			fmt.Printf("failed getting %s wallet info: %s\n", c.Name, err)
 		}
 
 		if len(reporterPool) == 0 {
