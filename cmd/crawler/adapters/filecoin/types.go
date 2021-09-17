@@ -21,4 +21,15 @@ type Balance struct {
 	Balance decimal.Decimal `json:"balance"`
 }
 
-type BalanceReport []Balance
+// FilfoxReport used to map data pulled from filfox explorer
+type FilfoxReport []Balance
+
+// FilscoutReport used to map data pulled from filscout explorer
+type FilscoutReport struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+	Data    struct {
+		Datetime []string          `json:"datetime"`
+		Balance  []decimal.Decimal `json:"balance"`
+	} `json:"data"`
+}
