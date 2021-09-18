@@ -10,6 +10,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
 	"github.com/cs-bird/cmd/crawler/adapters/filecoin"
+	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/cmd/crawler/types"
 	"github.com/cs-bird/internals/psql"
@@ -22,6 +23,7 @@ func main() {
 	}
 
 	pl := pipeline.New()
+	pl.Add(rose.New())
 	pl.Add(filecoin.New())
 	pl.Add(elrond.New())
 	pl.Add(cosmos.New())
