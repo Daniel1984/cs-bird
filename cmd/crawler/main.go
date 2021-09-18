@@ -6,6 +6,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/cs-bird/cmd/crawler/adapters/algorand"
 	"github.com/cs-bird/cmd/crawler/adapters/cosmos"
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
@@ -28,6 +29,7 @@ func main() {
 	pl.Add(elrond.New())
 	pl.Add(cosmos.New())
 	pl.Add(dfinity.New())
+	pl.Add(algorand.New())
 
 	for {
 		checkpoints := pl.Process()
