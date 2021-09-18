@@ -6,6 +6,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/cs-bird/cmd/crawler/adapters/aion"
 	"github.com/cs-bird/cmd/crawler/adapters/algorand"
 	"github.com/cs-bird/cmd/crawler/adapters/cosmos"
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
@@ -30,6 +31,7 @@ func main() {
 	pl.Add(cosmos.New())
 	pl.Add(dfinity.New())
 	pl.Add(algorand.New())
+	pl.Add(aion.New())
 
 	for {
 		checkpoints := pl.Process()
@@ -44,6 +46,6 @@ func main() {
 			}
 		}
 
-		time.Sleep(120 * time.Second)
+		time.Sleep(10 * time.Second)
 	}
 }
