@@ -8,10 +8,12 @@ import (
 
 	"github.com/cs-bird/cmd/crawler/adapters/aion"
 	"github.com/cs-bird/cmd/crawler/adapters/algorand"
+	"github.com/cs-bird/cmd/crawler/adapters/avax"
 	"github.com/cs-bird/cmd/crawler/adapters/cosmos"
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
 	"github.com/cs-bird/cmd/crawler/adapters/filecoin"
+	"github.com/cs-bird/cmd/crawler/adapters/polygon"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/cmd/crawler/types"
@@ -32,6 +34,8 @@ func main() {
 	pl.Add(dfinity.New())
 	pl.Add(algorand.New())
 	pl.Add(aion.New())
+	pl.Add(avax.New())
+	pl.Add(polygon.New())
 
 	for {
 		checkpoints := pl.Process()
@@ -46,6 +50,6 @@ func main() {
 			}
 		}
 
-		time.Sleep(10 * time.Second)
+		time.Sleep(120 * time.Second)
 	}
 }
