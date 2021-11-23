@@ -18,9 +18,11 @@ import (
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/cmd/crawler/types"
 	"github.com/cs-bird/internals/psql"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	godotenv.Load()
 	db, err := psql.New()
 	if err != nil {
 		log.Fatal(err)
