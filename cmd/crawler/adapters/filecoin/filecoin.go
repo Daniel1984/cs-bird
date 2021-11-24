@@ -1,7 +1,6 @@
 package filecoin
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/cs-bird/cmd/crawler/types"
@@ -51,22 +50,11 @@ func (f *Filecoin) Get() (cp types.Checkpoint, err error) {
 		}
 
 		if len(reporterPool) == 0 {
-			err = errors.New("run out of connections for: " + f.Name)
 			break
 		}
 	}
 
 	return
-}
-
-func getMessages(address string) (MessagesReport, error) {
-	mr := MessagesReport{}
-	req := request.
-		New("GET", fmt.Sprintf(msgsURL, address), nil).
-		Do().
-		Decode(&mr)
-
-	return mr, req.HasError()
 }
 
 func filfoxReport(address string) (decimal.Decimal, error) {
