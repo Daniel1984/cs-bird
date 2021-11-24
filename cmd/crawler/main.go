@@ -9,6 +9,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/aion"
 	"github.com/cs-bird/cmd/crawler/adapters/algorand"
 	"github.com/cs-bird/cmd/crawler/adapters/avax"
+	"github.com/cs-bird/cmd/crawler/adapters/callisto"
 	"github.com/cs-bird/cmd/crawler/adapters/cosmos"
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
@@ -38,6 +39,7 @@ func main() {
 	pl.Add(aion.New())
 	pl.Add(avax.New())
 	pl.Add(polygon.New())
+	pl.Add(callisto.New())
 
 	for {
 		checkpoints := pl.Process()
@@ -52,6 +54,6 @@ func main() {
 			}
 		}
 
-		time.Sleep(120 * time.Second)
+		time.Sleep(60 * time.Second)
 	}
 }
