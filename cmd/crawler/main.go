@@ -49,8 +49,10 @@ func main() {
 				continue
 			}
 
-			if err := types.PersistCheckpoint(context.TODO(), db.Client, cp.Res); err != nil {
-				fmt.Printf("failed persisting %s:>%+v, msg:%s\n", coin, cp, err)
+			if len(cp.Res.Address) > 0 && len(cp.Res.Coin) > 0 {
+				if err := types.PersistCheckpoint(context.TODO(), db.Client, cp.Res); err != nil {
+					fmt.Printf("failed persisting %s:>%+v, msg:%s\n", coin, cp, err)
+				}
 			}
 		}
 
