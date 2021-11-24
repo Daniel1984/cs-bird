@@ -26,8 +26,8 @@ func New() *Dfinity {
 	}
 }
 
-func (this *Dfinity) Get() (cp types.Checkpoint, err error) {
-	balRep, err := getBalanceReport(this.Address)
+func (d *Dfinity) Get() (cp types.Checkpoint, err error) {
+	balRep, err := getBalanceReport(d.Address)
 	if err != nil {
 		return cp, err
 	}
@@ -37,8 +37,8 @@ func (this *Dfinity) Get() (cp types.Checkpoint, err error) {
 	}
 
 	cp.Balance = balRep.Balances[0].Value
-	cp.Address = this.Address
-	cp.Coin = this.Name
+	cp.Address = d.Address
+	cp.Coin = d.Name
 
 	return
 }
