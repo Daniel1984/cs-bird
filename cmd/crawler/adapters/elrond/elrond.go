@@ -1,7 +1,6 @@
 package elrond
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/cs-bird/cmd/crawler/types"
@@ -50,7 +49,6 @@ func (e *Elrond) Get() (cp types.Checkpoint, err error) {
 		}
 
 		if len(reporterPool) == 0 {
-			err = errors.New("run out of connections for: " + e.Name)
 			break
 		}
 	}
