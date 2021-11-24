@@ -47,7 +47,6 @@ func (e *Aion) Get() (cp types.Checkpoint, err error) {
 		}
 
 		if len(reporterPool) == 0 {
-			err = errors.New("run out of connections for: " + e.Name)
 			break
 		}
 	}
