@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	address     = "0x16c633f1AFC23DC14E29e2c3220a4b5E4a5260a0"
-	explorerOne = "https://explorer.callisto.network/address/%s"
-	explorerTwo = "https://callistoexplorer.com/address/%s"
+	address        = "0x16c633f1AFC23DC14E29e2c3220a4b5E4a5260a0"
+	explorerOneURL = "https://explorer.callisto.network/address/%s"
+	explorerTwoURL = "https://callistoexplorer.com/address/%s"
 )
 
 type Callisto struct {
@@ -72,7 +72,7 @@ func reporterOne(address string) (decimal.Decimal, error) {
 	})
 
 	// Start scraping
-	c.Visit(fmt.Sprintf(explorerOne, address))
+	c.Visit(fmt.Sprintf(explorerOneURL, address))
 
 	return bal, nil
 }
@@ -92,7 +92,7 @@ func reporterTwo(address string) (decimal.Decimal, error) {
 	})
 
 	// Start scraping
-	c.Visit(fmt.Sprintf(explorerTwo, address))
+	c.Visit(fmt.Sprintf(explorerTwoURL, address))
 
 	return bal, nil
 }
