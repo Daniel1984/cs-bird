@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/reporterpool"
 	"github.com/cs-bird/internals/request"
 	"github.com/shopspring/decimal"
@@ -28,7 +28,7 @@ func New() *Aion {
 	}
 }
 
-func (e *Aion) Get() (cp types.Checkpoint, err error) {
+func (e *Aion) Get() (cp models.Checkpoint, err error) {
 	reporterPool := []reporterpool.Reporter{theoanReport}
 
 	for {

@@ -18,7 +18,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/adapters/tezos"
 	"github.com/cs-bird/cmd/crawler/pipeline"
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/psql"
 	"github.com/joho/godotenv"
 )
@@ -52,7 +52,7 @@ func main() {
 			}
 
 			if len(cp.Res.Address) > 0 && len(cp.Res.Coin) > 0 {
-				if err := types.PersistCheckpoint(context.TODO(), db.Client, cp.Res); err != nil {
+				if err := models.PersistCheckpoint(context.TODO(), db.Client, cp.Res); err != nil {
 					fmt.Printf("failed persisting %s:>%+v, msg:%s\n", coin, cp, err)
 				}
 			}

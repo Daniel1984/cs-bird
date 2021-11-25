@@ -3,7 +3,7 @@ package tezos
 import (
 	"fmt"
 
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/reporterpool"
 	"github.com/cs-bird/internals/request"
 	"github.com/shopspring/decimal"
@@ -27,7 +27,7 @@ func New() *Tezos {
 	}
 }
 
-func (e *Tezos) Get() (cp types.Checkpoint, err error) {
+func (e *Tezos) Get() (cp models.Checkpoint, err error) {
 	reporterPool := []reporterpool.Reporter{
 		reporterOne,
 		reporterTwo,

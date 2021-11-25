@@ -3,7 +3,7 @@ package polygon
 import (
 	"context"
 
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/shopspring/decimal"
@@ -26,16 +26,16 @@ func New() *Polygon {
 	}
 }
 
-func (p *Polygon) Get() (cp types.Checkpoint, err error) {
+func (p *Polygon) Get() (cp models.Checkpoint, err error) {
 	client, err := ethclient.Dial(polygonURL)
 	if err != nil {
-		return types.Checkpoint{}, err
+		return models.Checkpoint{}, err
 	}
 
 	account := common.HexToAddress(address)
 	balance, err := client.BalanceAt(context.TODO(), account, nil)
 	if err != nil {
-		return types.Checkpoint{}, err
+		return models.Checkpoint{}, err
 	}
 
 	cp.Balance = decimal.NewFromBigInt(balance, 0)

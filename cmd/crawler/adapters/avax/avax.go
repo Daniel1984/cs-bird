@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/reporterpool"
 	"github.com/cs-bird/internals/request"
 	"github.com/shopspring/decimal"
@@ -27,7 +27,7 @@ func New() *Avax {
 	}
 }
 
-func (e *Avax) Get() (cp types.Checkpoint, err error) {
+func (e *Avax) Get() (cp models.Checkpoint, err error) {
 	reporterPool := []reporterpool.Reporter{avaxReport}
 
 	for {

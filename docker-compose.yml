@@ -56,4 +56,20 @@ services:
       - csbirdnetwork
     env_file:
       - .env
-    entrypoint: ["/bin/bash", "./scripts/entrypoint.sh"]
+    entrypoint: ["/bin/bash", "./scripts/crawler_entrypoint.sh"]
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: on-failure
+    depends_on:
+      - tsdb
+    volumes:
+      - ./:/app
+    ports:
+      - 8081:8081
+    networks:
+      - csbirdnetwork
+    env_file:
+      - .env
+    entrypoint: ["/bin/bash", "./scripts/api_entrypoint.sh"]

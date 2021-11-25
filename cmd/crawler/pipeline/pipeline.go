@@ -2,12 +2,12 @@ package pipeline
 
 import (
 	"github.com/cs-bird/cmd/crawler/adapters"
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 )
 
 type Report struct {
 	Err error
-	Res types.Checkpoint
+	Res models.Checkpoint
 }
 
 type Pipeline struct {

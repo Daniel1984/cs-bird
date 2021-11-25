@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/request"
 )
 
@@ -26,7 +26,7 @@ func New() *Dfinity {
 	}
 }
 
-func (d *Dfinity) Get() (cp types.Checkpoint, err error) {
+func (d *Dfinity) Get() (cp models.Checkpoint, err error) {
 	balRep, err := getBalanceReport(d.Address)
 	if err != nil {
 		return cp, err

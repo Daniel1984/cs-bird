@@ -1,7 +1,7 @@
 package adapters
 
-import "github.com/cs-bird/cmd/crawler/types"
+import "github.com/cs-bird/internals/models"
 
 type Adapter interface {
-	Get() (types.Checkpoint, error)
+	Get() (models.Checkpoint, error)
 }

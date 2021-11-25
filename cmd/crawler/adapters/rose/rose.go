@@ -3,7 +3,7 @@ package rose
 import (
 	"fmt"
 
-	"github.com/cs-bird/cmd/crawler/types"
+	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/reporterpool"
 	"github.com/cs-bird/internals/request"
 	"github.com/shopspring/decimal"
@@ -27,7 +27,7 @@ func New() *Rose {
 	}
 }
 
-func (c *Rose) Get() (cp types.Checkpoint, err error) {
+func (c *Rose) Get() (cp models.Checkpoint, err error) {
 	reporterPool := []reporterpool.Reporter{
 		oasismonitorReport,
 		oasisscanReport,
