@@ -33,14 +33,14 @@ services:
       - csbirdnetwork
     env_file:
       - .env
-  grafana:
-    image: grafana/grafana:latest
-    networks:
-      - csbirdnetwork
-    ports:
-      - 3002:3000
-    volumes:
-      - grafanavolume:/var/lib/grafana
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   networks:
+  #     - csbirdnetwork
+  #   ports:
+  #     - 3002:3000
+  #   volumes:
+  #     - grafanavolume:/var/lib/grafana
   csbird:
     build:
       context: .
@@ -50,8 +50,6 @@ services:
       - tsdb
     volumes:
       - ./:/app
-        # ports:
-        #   - 3003:7777
     networks:
       - csbirdnetwork
     env_file:
