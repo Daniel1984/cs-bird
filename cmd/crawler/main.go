@@ -30,6 +30,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	repo := models.NewRepository(db.Client)
+
 	pl := pipeline.New()
 	pl.Add(rose.New())
 	pl.Add(filecoin.New())
@@ -52,7 +54,7 @@ func main() {
 			}
 
 			if len(cp.Res.Address) > 0 && len(cp.Res.Coin) > 0 {
-				if err := models.PersistCheckpoint(context.TODO(), db.Client, cp.Res); err != nil {
+				if err := repo.Checkpoint.Insert(context.TODO(), cp.Res); err != nil {
 					fmt.Printf("failed persisting %s:>%+v, msg:%s\n", coin, cp, err)
 				}
 			}
