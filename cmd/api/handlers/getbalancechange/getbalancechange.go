@@ -2,39 +2,41 @@ package getbalancechange
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
-	"github.com/boilerplate/pkg/application"
-	"github.com/boilerplate/pkg/middleware"
+	"github.com/cs-bird/cmd/api/application"
+	"github.com/cs-bird/internals/middleware"
 	"github.com/julienschmidt/httprouter"
 )
 
 func getBalanceChangeEvents(app *application.Application) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		defer r.Body.Close()
 
 		qs := r.URL.Query()
-		_, _ := strconv.Atoi(qs.Get("hours"))
+		hours, _ := strconv.Atoi(qs.Get("hours"))
 
-		// cp := models.Checkpoint{}
-		// cps, err := cp.
+		events, err := app.Repo.BalanceChange.FetchForHours(r.Context(), hours)
+		if err != nil {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			fmt.Fprintf(w, "failed getting balance change events: %s", err)
+			return
+		}
 
-		// if err := models.GetByID(r.Context(), app); err != nil {
-		// 	if errors.Is(err, sql.ErrNoRows) {
-		// 		w.WriteHeader(http.StatusPreconditionFailed)
-		// 		fmt.Fprintf(w, "user does not exist")
-		// 		return
-		// 	}
-
-		// 	w.WriteHeader(http.StatusInternalServerError)
-		// 	fmt.Fprintf(w, "Oops")
-		// 	return
-		// }
+		res, err := json.Marshal(events)
+		if err != nil {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			fmt.Fprintf(w, "failed parsing json: %s", err)
+			return
+		}
 
 		w.Header().Set("Content-Type", "application/json")
-		response, _ := json.Marshal(nil)
-		w.Write(response)
+		if _, err := w.Write(res); err != nil {
+			log.Printf("failed responding to api call: %s\n", err)
+		}
 	}
 }
 
