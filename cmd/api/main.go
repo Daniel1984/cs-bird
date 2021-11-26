@@ -22,7 +22,7 @@ func main() {
 
 	srv := server.
 		Get().
-		WithAddr(app.ApiPort).
+		WithAddr(":" + app.ApiPort).
 		WithRouter(router.Get(app))
 
 	go func() {
