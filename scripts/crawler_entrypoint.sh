@@ -1,13 +1,10 @@
 #!/bin/bash
 set -e
 
-echo "#################### migrating dev db"
-go run cmd/dbmigrate/main.go -migrate=up
-
-echo "#################### downloading CompileDaemon"
+echo "#################### downloading CompileDaemon for crawler"
 # disable go modules to avoid this package from getting into go.mod
 # as we only need it locally to watch and rebuild server on change
 GO111MODULE=off go get github.com/githubnemo/CompileDaemon
 
 echo "#################### starting deamon"
-CompileDaemon --build="go build -o main cmd/crawler/main.go" --command=./main
+CompileDaemon --exclude-dir=cmd/api --build="go build -o crawler cmd/crawler/main.go" --command=./crawler
