@@ -9,13 +9,17 @@ import (
 
 type Checkpoint struct {
 	Height  int
+	Nonce   int64
+	Balance decimal.Decimal
 	Coin    string
 	Address string
-	Balance decimal.Decimal
-	Nonce   int64
 }
 
-func PersistCheckpoint(ctx context.Context, db psql.DBIterator, pld Checkpoint) (err error) {
+type CheckpointRepo struct {
+	DB psql.DBIterator
+}
+
+func (cpr CheckpointRepo) Insert(ctx context.Context, pld Checkpoint) (err error) {
 	stmt := `
 		INSERT INTO
 		public."checkpoints" (
@@ -28,7 +32,7 @@ func PersistCheckpoint(ctx context.Context, db psql.DBIterator, pld Checkpoint) 
 		VALUES (NOW(), $1, $2, $3, $4)
 	`
 
-	_, err = db.ExecContext(
+	_, err = cpr.DB.ExecContext(
 		ctx,
 		stmt,
 		pld.Coin,
