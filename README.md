@@ -3,6 +3,8 @@
 ## Running locally
 ```sh
 docker-compose up
+
+go run cmd/dbmigrate/main.go -migrate=up -dbhost=localhost
 ```
 
 ## Migrations
@@ -25,8 +27,11 @@ SELECT distinct on (balance) balance, coin, address, time
 FROM checkpoints
 WHERE time > NOW() - INTERVAL '20 hours';
 
-select count(distinct balance) balance_changes_over_24h, coin, address
+select
+    count(distinct balance) - 1 as balance_change_events,
+    coin,
+    address
 from checkpoints
-WHERE time > NOW() - INTERVAL '24 hours'
+WHERE time > NOW() - INTERVAL '4 hours'
 group by coin, address;
 ```
