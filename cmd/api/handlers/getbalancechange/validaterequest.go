@@ -19,10 +19,16 @@ func validateRequest(next httprouter.Handle) httprouter.Handle {
 			return
 		}
 
-		_, err := strconv.Atoi(hoursStr)
+		h, err := strconv.Atoi(hoursStr)
 		if err != nil {
 			w.WriteHeader(http.StatusPreconditionFailed)
-			fmt.Fprintf(w, "malformed hours query string, only accepts integers")
+			fmt.Fprintf(w, "malformed `hours` query string, only accepts integers")
+			return
+		}
+
+		if h < 1 || h > 48 {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			fmt.Fprintf(w, "`hours` value mus be in range [1..24]")
 			return
 		}
 
