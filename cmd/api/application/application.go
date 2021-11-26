@@ -4,12 +4,14 @@ import (
 	"flag"
 	"os"
 
+	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/psql"
 )
 
 // Application holds commonly used app wide data, for ease of DI
 type Application struct {
 	DB      *psql.DB
+	Repo    models.Repo
 	ApiPort string
 }
 
@@ -25,5 +27,6 @@ func Get() (*Application, error) {
 	}
 
 	app.DB = db
+	app.Repo = models.NewRepository(db.Client)
 	return app, nil
 }
