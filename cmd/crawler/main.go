@@ -17,6 +17,8 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/polygon"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/adapters/tezos"
+	"github.com/cs-bird/cmd/crawler/adapters/tfuel"
+	"github.com/cs-bird/cmd/crawler/adapters/theta"
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/psql"
@@ -44,6 +46,8 @@ func main() {
 	pl.Add(polygon.New())
 	pl.Add(callisto.New())
 	pl.Add(tezos.New())
+	pl.Add(theta.New())
+	pl.Add(tfuel.New())
 
 	for {
 		checkpoints := pl.Process()
