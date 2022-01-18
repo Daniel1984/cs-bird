@@ -10,7 +10,8 @@ import (
 )
 
 const (
-	address    = "0xf63724c70bf94b7ceefa0bc8e2de5948eded0800"
+	// address    = "0xf63724c70bf94b7ceefa0bc8e2de5948eded0800"
+	address    = "0x876EabF441B2EE5B5b0554Fd502a8E0600950cFa"
 	polygonURL = "https://rpc-mainnet.maticvigil.com/"
 )
 
