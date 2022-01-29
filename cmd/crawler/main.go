@@ -14,6 +14,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
 	"github.com/cs-bird/cmd/crawler/adapters/filecoin"
+	"github.com/cs-bird/cmd/crawler/adapters/kardiachain"
 	"github.com/cs-bird/cmd/crawler/adapters/polygon"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/adapters/tezos"
@@ -49,6 +50,7 @@ func main() {
 	pl.Add(tezos.New())
 	pl.Add(theta.New())
 	pl.Add(tfuel.New())
+	pl.Add(kardiachain.New())
 
 	for {
 		checkpoints := pl.Process()

@@ -72,6 +72,10 @@ func reporterOne(address string) (decimal.Decimal, error) {
 		}
 
 		str := split[0]
+		if len(str) == 0 {
+			return
+		}
+
 		str = strings.ReplaceAll(str, ",", "")
 		str = strings.TrimSpace(str)
 		bal = decimal.RequireFromString(str)
