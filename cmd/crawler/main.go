@@ -22,6 +22,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/psql"
+	"github.com/cs-bird/internals/randnum"
 	"github.com/joho/godotenv"
 )
 
@@ -64,6 +65,7 @@ func main() {
 			}
 		}
 
-		time.Sleep(60 * time.Second)
+		interval := randnum.InRange(60, 90)
+		time.Sleep(time.Duration(interval) * time.Second)
 	}
 }
