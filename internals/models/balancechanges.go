@@ -12,6 +12,7 @@ type BalanceChange struct {
 	BalanceChanges int    `json:"balance_changes"`
 	Coin           string `json:"coin"`
 	Address        string `joisn:"address"`
+	Balance        string `joisn:"balance"`
 }
 
 type BalanceChangeRepo struct {
@@ -22,10 +23,24 @@ func (bcr BalanceChangeRepo) FetchForHours(ctx context.Context, hours int) ([]Ba
 	bcs := make([]BalanceChange, 0)
 
 	query := []string{
-		"SELECT COUNT(DISTINCT balance) - 1, coin, address",
-		"FROM checkpoints",
-		fmt.Sprintf("WHERE time > NOW() - INTERVAL '%d hours'", hours),
-		"GROUP BY coin, address",
+		`
+			SELECT
+				COUNT(DISTINCT root.balance) - 1,
+				root.coin,
+				root.address,
+				(
+					SELECT
+						balance
+					FROM checkpoints
+					WHERE address = root.address
+					AND coin = root.coin
+					ORDER BY time DESC
+					LIMIT 1
+				) as balace
+		`,
+		"FROM checkpoints AS root",
+		fmt.Sprintf("WHERE root.time > NOW() - INTERVAL '%d hours'", hours),
+		"GROUP BY root.coin, root.address",
 	}
 
 	rows, err := bcr.DB.QueryContext(ctx, strings.Join(query, " "))
@@ -42,6 +57,7 @@ func (bcr BalanceChangeRepo) FetchForHours(ctx context.Context, hours int) ([]Ba
 			&bc.BalanceChanges,
 			&bc.Coin,
 			&bc.Address,
+			&bc.Balance,
 		); err != nil {
 			return nil, err
 		}
