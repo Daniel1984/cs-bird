@@ -17,6 +17,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/kardiachain"
 	"github.com/cs-bird/cmd/crawler/adapters/polygon"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
+	"github.com/cs-bird/cmd/crawler/adapters/songbird"
 	"github.com/cs-bird/cmd/crawler/adapters/tezos"
 	"github.com/cs-bird/cmd/crawler/adapters/tfuel"
 	"github.com/cs-bird/cmd/crawler/adapters/theta"
@@ -51,6 +52,7 @@ func main() {
 	pl.Add(theta.New())
 	pl.Add(tfuel.New())
 	pl.Add(kardiachain.New())
+	pl.Add(songbird.New())
 
 	for {
 		checkpoints := pl.Process()
