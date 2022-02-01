@@ -62,7 +62,6 @@ func reporterOne(address string) (decimal.Decimal, error) {
 	c := colly.NewCollector()
 
 	c.OnHTML("[data-test=address_balance]", func(e *colly.HTMLElement) {
-		fmt.Printf("---> %+v", e.Text)
 		if len(e.Text) == 0 {
 			return
 		}
