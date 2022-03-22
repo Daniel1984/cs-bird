@@ -22,6 +22,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/polygon"
 	"github.com/cs-bird/cmd/crawler/adapters/radix"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
+	"github.com/cs-bird/cmd/crawler/adapters/solana"
 	"github.com/cs-bird/cmd/crawler/adapters/songbird"
 	"github.com/cs-bird/cmd/crawler/adapters/tezos"
 	"github.com/cs-bird/cmd/crawler/adapters/tfuel"
@@ -63,6 +64,7 @@ func main() {
 	pl.Add(polkadot.New())
 	pl.Add(kusama.New())
 	pl.Add(radix.New())
+	pl.Add(solana.New())
 
 	for {
 		checkpoints := pl.Process()
