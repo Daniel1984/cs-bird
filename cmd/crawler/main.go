@@ -15,6 +15,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
 	"github.com/cs-bird/cmd/crawler/adapters/filecoin"
 	"github.com/cs-bird/cmd/crawler/adapters/kardiachain"
+	"github.com/cs-bird/cmd/crawler/adapters/near"
 	"github.com/cs-bird/cmd/crawler/adapters/polygon"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/adapters/songbird"
@@ -53,6 +54,9 @@ func main() {
 	pl.Add(tfuel.New())
 	pl.Add(kardiachain.New())
 	pl.Add(songbird.New())
+	// pl.Add(polkadot.New())
+	// pl.Add(radix.New())
+	pl.Add(near.New())
 
 	for {
 		checkpoints := pl.Process()
