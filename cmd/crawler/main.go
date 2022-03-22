@@ -15,6 +15,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
 	"github.com/cs-bird/cmd/crawler/adapters/filecoin"
 	"github.com/cs-bird/cmd/crawler/adapters/kardiachain"
+	"github.com/cs-bird/cmd/crawler/adapters/kusama"
 	"github.com/cs-bird/cmd/crawler/adapters/near"
 	"github.com/cs-bird/cmd/crawler/adapters/omni"
 	"github.com/cs-bird/cmd/crawler/adapters/polkadot"
@@ -60,6 +61,7 @@ func main() {
 	pl.Add(near.New())
 	pl.Add(omni.New())
 	pl.Add(polkadot.New())
+	pl.Add(kusama.New())
 	pl.Add(radix.New())
 
 	for {
