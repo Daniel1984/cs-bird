@@ -6,6 +6,7 @@ require (
 	github.com/ethereum/go-ethereum v1.10.13
 	github.com/gocolly/colly v1.2.0
 	github.com/golang-migrate/migrate/v4 v4.15.1
+	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.4.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/lib/pq v1.10.4

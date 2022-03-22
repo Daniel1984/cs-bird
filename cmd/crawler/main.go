@@ -19,6 +19,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/omni"
 	"github.com/cs-bird/cmd/crawler/adapters/polkadot"
 	"github.com/cs-bird/cmd/crawler/adapters/polygon"
+	"github.com/cs-bird/cmd/crawler/adapters/radix"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/adapters/songbird"
 	"github.com/cs-bird/cmd/crawler/adapters/tezos"
@@ -59,7 +60,7 @@ func main() {
 	pl.Add(near.New())
 	pl.Add(omni.New())
 	pl.Add(polkadot.New())
-	// pl.Add(radix.New())
+	pl.Add(radix.New())
 
 	for {
 		checkpoints := pl.Process()
