@@ -29,6 +29,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/tfuel"
 	"github.com/cs-bird/cmd/crawler/adapters/theta"
 	"github.com/cs-bird/cmd/crawler/adapters/tron"
+	"github.com/cs-bird/cmd/crawler/adapters/vsys"
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/psql"
@@ -69,6 +70,7 @@ func main() {
 	pl.Add(solana.New())
 	pl.Add(stellar.New())
 	pl.Add(tron.New())
+	pl.Add(vsys.New())
 
 	for {
 		checkpoints := pl.Process()
