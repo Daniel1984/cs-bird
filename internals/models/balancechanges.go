@@ -11,8 +11,8 @@ import (
 type BalanceChange struct {
 	BalanceChanges int    `json:"balance_changes"`
 	Coin           string `json:"coin"`
-	Address        string `joisn:"address"`
-	Balance        string `joisn:"balance"`
+	Address        string `json:"address"`
+	Balance        string `json:"balance"`
 }
 
 type BalanceChangeRepo struct {
