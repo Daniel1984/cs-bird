@@ -30,6 +30,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/theta"
 	"github.com/cs-bird/cmd/crawler/adapters/tron"
 	"github.com/cs-bird/cmd/crawler/adapters/vsys"
+	"github.com/cs-bird/cmd/crawler/adapters/waves"
 	"github.com/cs-bird/cmd/crawler/adapters/wax"
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/internals/models"
@@ -73,6 +74,7 @@ func main() {
 	pl.Add(tron.New())
 	pl.Add(vsys.New())
 	pl.Add(wax.New())
+	pl.Add(waves.New())
 
 	for {
 		checkpoints := pl.Process()
