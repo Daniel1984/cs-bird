@@ -41,6 +41,7 @@ func (bcr BalanceChangeRepo) FetchForHours(ctx context.Context, hours int) ([]Ba
 		"FROM checkpoints AS root",
 		fmt.Sprintf("WHERE root.time > NOW() - INTERVAL '%d hours'", hours),
 		"GROUP BY root.coin, root.address",
+		"ORDER BY (COUNT(DISTINCT root.balance)) DESC",
 	}
 
 	rows, err := bcr.DB.QueryContext(ctx, strings.Join(query, " "))
