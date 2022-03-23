@@ -33,6 +33,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/waves"
 	"github.com/cs-bird/cmd/crawler/adapters/wax"
 	"github.com/cs-bird/cmd/crawler/adapters/xinfin"
+	"github.com/cs-bird/cmd/crawler/adapters/zil"
 	"github.com/cs-bird/cmd/crawler/pipeline"
 	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/psql"
@@ -77,6 +78,7 @@ func main() {
 	pl.Add(wax.New())
 	pl.Add(waves.New())
 	pl.Add(xinfin.New())
+	pl.Add(zil.New())
 
 	for {
 		checkpoints := pl.Process()
