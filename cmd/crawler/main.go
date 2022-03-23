@@ -24,6 +24,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/polygon"
 	"github.com/cs-bird/cmd/crawler/adapters/radix"
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
+	"github.com/cs-bird/cmd/crawler/adapters/serum"
 	"github.com/cs-bird/cmd/crawler/adapters/solana"
 	"github.com/cs-bird/cmd/crawler/adapters/songbird"
 	"github.com/cs-bird/cmd/crawler/adapters/stellar"
@@ -83,6 +84,7 @@ func main() {
 	pl.Add(zil.New())
 	pl.Add(certic.New())
 	pl.Add(eos.New())
+	pl.Add(serum.New())
 
 	for {
 		checkpoints := pl.Process()
