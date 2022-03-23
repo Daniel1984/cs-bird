@@ -24,6 +24,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/rose"
 	"github.com/cs-bird/cmd/crawler/adapters/solana"
 	"github.com/cs-bird/cmd/crawler/adapters/songbird"
+	"github.com/cs-bird/cmd/crawler/adapters/stellar"
 	"github.com/cs-bird/cmd/crawler/adapters/tezos"
 	"github.com/cs-bird/cmd/crawler/adapters/tfuel"
 	"github.com/cs-bird/cmd/crawler/adapters/theta"
@@ -65,6 +66,7 @@ func main() {
 	pl.Add(kusama.New())
 	pl.Add(radix.New())
 	pl.Add(solana.New())
+	pl.Add(stellar.New())
 
 	for {
 		checkpoints := pl.Process()
