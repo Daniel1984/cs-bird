@@ -14,6 +14,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/cosmos"
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
+	"github.com/cs-bird/cmd/crawler/adapters/eos"
 	"github.com/cs-bird/cmd/crawler/adapters/filecoin"
 	"github.com/cs-bird/cmd/crawler/adapters/kardiachain"
 	"github.com/cs-bird/cmd/crawler/adapters/kusama"
@@ -81,6 +82,7 @@ func main() {
 	pl.Add(xinfin.New())
 	pl.Add(zil.New())
 	pl.Add(certic.New())
+	pl.Add(eos.New())
 
 	for {
 		checkpoints := pl.Process()
