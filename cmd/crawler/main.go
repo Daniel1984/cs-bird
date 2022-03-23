@@ -87,7 +87,7 @@ func main() {
 			}
 		}
 
-		interval := randnum.InRange(120, 240)
+		interval := randnum.InRange(300, 600)
 		time.Sleep(time.Duration(interval) * time.Second)
 	}
 }
