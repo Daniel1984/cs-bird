@@ -10,6 +10,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/algorand"
 	"github.com/cs-bird/cmd/crawler/adapters/avax"
 	"github.com/cs-bird/cmd/crawler/adapters/callisto"
+	"github.com/cs-bird/cmd/crawler/adapters/certic"
 	"github.com/cs-bird/cmd/crawler/adapters/cosmos"
 	"github.com/cs-bird/cmd/crawler/adapters/dfinity"
 	"github.com/cs-bird/cmd/crawler/adapters/elrond"
@@ -79,6 +80,7 @@ func main() {
 	pl.Add(waves.New())
 	pl.Add(xinfin.New())
 	pl.Add(zil.New())
+	pl.Add(certic.New())
 
 	for {
 		checkpoints := pl.Process()
