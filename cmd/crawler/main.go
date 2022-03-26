@@ -33,6 +33,7 @@ import (
 	"github.com/cs-bird/cmd/crawler/adapters/tfuel"
 	"github.com/cs-bird/cmd/crawler/adapters/theta"
 	"github.com/cs-bird/cmd/crawler/adapters/tron"
+	"github.com/cs-bird/cmd/crawler/adapters/ust"
 	"github.com/cs-bird/cmd/crawler/adapters/vsys"
 	"github.com/cs-bird/cmd/crawler/adapters/waves"
 	"github.com/cs-bird/cmd/crawler/adapters/wax"
@@ -87,6 +88,7 @@ func main() {
 	pl.Add(eos.New())
 	pl.Add(serum.New())
 	pl.Add(luna.New())
+	pl.Add(ust.New())
 
 	for {
 		checkpoints := pl.Process()
