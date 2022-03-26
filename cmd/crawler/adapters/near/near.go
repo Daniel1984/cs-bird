@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
-	"os"
 
 	"github.com/cs-bird/internals/models"
 	"github.com/cs-bird/internals/reporterpool"
@@ -94,7 +92,7 @@ func reporterOne(address string) (decimal.Decimal, error) {
 		AddHeaders("Content-Type", "application/json").
 		Do().
 		Decode(&rep)
-	io.Copy(os.Stdout, req.Res.Body)
+	// io.Copy(os.Stdout, req.Res.Body)
 
 	if err := req.HasError(); err != nil {
 		return decimal.NewFromInt(0), err
