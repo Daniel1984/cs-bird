@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	address        = "0x876EabF441B2EE5B5b0554Fd502a8E0600950cFa"
+	address        = "0x77134cbC06cB00b66F4c7e623D5fdBF6777635EC"
 	explorerOneURL = "https://songbird-explorer.flare.network/address/%s/transactions"
 )
 
